@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setProfile, getStatus, changeStatus } from "../../redux/reducers/profile-reducer";
+import { setProfile, getStatus, changeStatus, saveAvatar, saveInfo } from "../../redux/reducers/profile-reducer";
 import { useLocation,useNavigate,useParams } from "react-router-dom";
 import Profile from "./Profile";
 import authRedirect from "../../hoc/redirect";
 
 
-const ProfileContainer =(props)=>{
+const ProfileContainer =(props)=> {
   let profileId = props.router.params.profileId;
     if(!profileId){
       profileId=props.id
@@ -17,7 +17,7 @@ const ProfileContainer =(props)=>{
     }, [profileId])
     return (
       <div>
-        <Profile {...props} profile={props.profile} status={props.status} changeStatus={props.changeStatus} id={props.id} />
+        <Profile {...props} profile={props.profile} status={props.status} changeStatus={props.changeStatus} id={props.id} saveAvatar={props.saveAvatar} saveInfo={props.saveInfo}/>
       </div>
       )
   }
@@ -47,4 +47,4 @@ let AuthRedirect = authRedirect(ProfileContainer);
     status: state.profilePage.status
   })
   
-  export default connect(mapStateToProps, {setProfile, getStatus, changeStatus})(withRouter(AuthRedirect));
+  export default connect(mapStateToProps, {setProfile, getStatus, changeStatus, saveAvatar, saveInfo})(withRouter(AuthRedirect));

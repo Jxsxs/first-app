@@ -130,7 +130,6 @@ export const getAllUsers = () => async (dispatch)=> {
     const followUnfollowFlow = async (dispatch, userId, requestsMethod, actionCreator) =>{
         dispatch(changeFollowingProgress(true, userId))
         let response = await requestsMethod(userId)
-
         if (response.data.resultCode === 0){
             dispatch(actionCreator(userId))
     }

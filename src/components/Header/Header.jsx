@@ -1,6 +1,5 @@
 import React from "react";
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import s from './Header.module.css'
 import ava from './../../imgs/ava.gif'
 

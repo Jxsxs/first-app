@@ -23,7 +23,7 @@ const ProfileStatus = (props) => {
           <div>
               {!editMode &&
               <div>
-                  <span onClick={ activeChangeStatus }>{props.status || "status is empty"}</span>
+                  <b>status</b>: <span onClick={ activeChangeStatus }>{props.status || "status is empty"}</span>
               </div>
   }
   {editMode &&
@@ -36,7 +36,7 @@ const ProfileStatus = (props) => {
     }else{
       return(
         <div>
-          <span>{props.status || "status is empty"}</span>
+          <b>status</b>: <span>{props.status || "status is empty"}</span>
         </div>
       )
     }

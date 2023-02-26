@@ -3,6 +3,8 @@ import Preloader from "../../preloader/preloader"
 import s from './ProfileInfo.module.css'
 import avatarPhoto from './../../../imgs/ava.gif'
 import ProfileStatus from "./ProfileStatus"
+import ChangeAvatar from "./changeAvatar"
+import Info from "./Info"
 
 const ProfileInfo = (props) => {
   if(!props.profile){
@@ -50,27 +52,13 @@ const ProfileInfo = (props) => {
       <div>
         <div>
         <img className={s.ava} src={props.profile.photos.large != null ? props.profile.photos.large : avatarPhoto}/>
-        </div>
         <div>
-        {props.profile.fullName}
-        </div>
-        <div>
-        {props.profile.aboutMe}
-        </div>
-        <div>
-        {props.profile.lookingForAJobDescription}
-        </div>
-        <div>
-          {props.profile.contacts.facebook}
-        </div>
-        <div>
-          {props.profile.contacts.twitter}
-        </div>
-        <div>
-          {props.profile.contacts.instagram}
+          <ChangeAvatar profileID={props.profile.userId} id={props.id} saveAvatar={props.saveAvatar}/>
         </div>
         </div>
-        <ProfileStatus status={props.status} changeStatus={props.changeStatus} profileID={props.profile.userId} id={props.id}/>
+        <Info profile={props.profile}  profileID={props.profile.userId} id={props.id} saveInfo={props.saveInfo}/>
+        <ProfileStatus status={props.status} changeStatus={props.changeStatus} profileID={props.profile.userId} id={props.id} />
+        </div>
         </div>
     )
   }

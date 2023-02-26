@@ -35,6 +35,12 @@ const profileReducer=(state = initialState, action)=>{
     } if(action.type==='SET-STATUS'){
         return{...state,
         status:action.status}
+    } if(action.type==='SET-AVATAR'){
+        return{...state,
+        profile:{...state.profile, photos: action.photos}}
+    } if(action.type==='SET-INFO'){
+        return{...state,
+        profile:action.info}
     }
     return state;
 }
@@ -66,20 +72,57 @@ export const setStatus=(status)=>{
     }
 };
 
-export const setProfile = (profileId) => async (dispatch)=>{
-        let response = await Requests.profile(profileId)
-      dispatch(setUserPage(response.data))
+export const setAvatar=(photos)=>{
+    return{
+        type:'SET-AVATAR',
+        photos
+    }
 };
 
-export const getStatus = (profileId) => async (dispatch)=>{
-        let response = await Requests.getStatus(profileId)
-            dispatch(setStatus(response.data))
+export const setInfo=(info)=>{
+    return{
+        type:'SET-INFO',
+        info
+    }
+};
+
+export const setProfile = (profileId) => async (dispatch)=>{
+        const response = await Requests.profile(profileId)
+      dispatch(setUserPage(response.data))
     };
+    
+export const getStatus = (profileId) => async (dispatch)=>{
+    let response = await Requests.getStatus(profileId)
+    dispatch(setStatus(response.data))
+};
 
 export const changeStatus = (status) => async (dispatch)=>{
-    let response = await Requests.changeStatus(status)
-                dispatch(setStatus(status))
+    try{
+        let response = await Requests.changeStatus(status)
+        dispatch(setStatus(status))
+    }catch(error){
+        
     }
-    
+    };
+
+export const saveAvatar = (file) => async (dispatch)=>{
+    try{
+        let response = await Requests.changeAvatar(file)
+        if(response.data.resultCode===0){
+            dispatch(setAvatar(response.data.data.photos))
+        }
+    }catch(error){
+    }
+    };
+
+    export const saveInfo = (info) => async (dispatch, getState)=>{
+        const userId = getState().auth.id
+        let response = await Requests.changeInfo(info)
+        if(response.data.resultCode===0){
+            dispatch(setProfile(userId))
+        }
+        };
+
+
     
 export default profileReducer;

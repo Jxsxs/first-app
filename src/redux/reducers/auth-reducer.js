@@ -5,7 +5,8 @@ let initialState={
     email:null,
     login:null,
     isAuth:false,
-    errorMessage:null
+    errorMessage:null,
+    captcha:null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -17,6 +18,9 @@ const authReducer = (state = initialState, action) => {
 } if(action.type==='SET-ERROR'){
     return{...state,
     errorMessage:action.errorMessage}
+}if(action.type==='SET-CAPTCHA'){
+    return{...state,
+    captcha: action.captcha}
 }
 return state
 };
@@ -36,6 +40,13 @@ const setError=(errorMessage)=>(
     }
 )
 
+const setCaptcha=(captcha)=>(
+    {
+        type:'SET-CAPTCHA',
+        captcha
+    }
+)
+
 export const setAuth=()=> (dispatch) =>{
         return Requests.auth()
         .then(response=>{
@@ -47,10 +58,14 @@ export const setAuth=()=> (dispatch) =>{
       })
     };
 
-export const login = (email, password, rememberMe) => async (dispatch)=>{
-    let response = await Requests.login(email, password, rememberMe)
+export const login = (email, password, rememberMe, captcha) => async (dispatch)=>{
+    debugger
+    let response = await Requests.login(email, password, rememberMe, captcha)
         if(response.data.resultCode===0){
             dispatch(setAuth())
+        }if(response.data.resultCode===10){
+            let response = await Requests.captcha()
+            dispatch(setCaptcha(response.data.url))
         }else{
             dispatch(setError(response.data.messages[0]))
         }

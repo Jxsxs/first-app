@@ -10,3 +10,8 @@
     height: 240px;
     width: 240px;
   }
+
+  .avatarsButton{
+    color: crimson;
+    background-color: black;
+  }

@@ -31,10 +31,24 @@ export const Requests={
     changeStatus(status){
         return instance.put(`profile/status`, {status:status})
     },
-    login(email, password, rememberMe=false){
-        return instance.post(`auth/login`, {email: email, password: password, rememberMe: rememberMe})
+    login(email, password, rememberMe=false, captcha){
+        return instance.post(`auth/login`, {email: email, password: password, rememberMe: rememberMe, captcha: captcha})
     },
     logOut(){
         return instance.delete(`auth/login`)
+    },
+    changeAvatar(file){
+        let formData= new FormData();
+        formData.append("image", file);
+        return instance.put(`profile/photo`, formData, {
+            headers:{
+          "Content-Type": "multipart/form-data"
+        }})
+    },
+    changeInfo(info){
+        return instance.put(`profile`, info)
+    },
+    captcha(){
+        return instance.get(`security/get-captcha-url`)
     }
 }
