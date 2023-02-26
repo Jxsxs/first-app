@@ -1,0 +1,25 @@
+.header {
+  grid-area: header;
+  background-color: black;
+  width: 100%;
+}
+.header img {
+  width: 120px;
+}
+
+.login a {
+  color: crimson;
+}
+
+.login {
+  float: right;
+  margin-right: 70px;
+}
+
+.user img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 100px;
+}
+.user {color: crimson;}

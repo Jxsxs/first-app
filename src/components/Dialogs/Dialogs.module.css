@@ -1,0 +1,44 @@
+
+.dialogs {
+display: grid;
+grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems .dialog {
+    padding: 5px;
+    text-decoration: none;
+}
+
+.nav {
+    text-decoration: none;
+    color: crimson
+}
+
+.messages {
+
+}
+
+.messages .message {
+ padding: 12.5px; 
+}
+
+.myMessage{
+    color: crimson;
+    margin-left: 200px;
+}
+
+.notMyMessage{
+    color: crimson;
+    margin-right: 100px;
+}
+
+.ava{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+.dialogAva{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}

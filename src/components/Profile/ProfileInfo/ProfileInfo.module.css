@@ -1,0 +1,12 @@
+
+.contents img {
+    width: 100%;
+    height: 350px;
+    
+  }
+  
+  .ava {
+    border-radius: 50%;
+    height: 240px;
+    width: 240px;
+  }

@@ -1,0 +1,28 @@
+.nav {
+  grid-area: nav;
+  background-color: black;
+}
+.item a {
+  text-decoration: none;
+  color: crimson;
+  }
+
+.item a:hover {
+    color:red
+  }
+ 
+.item a.active {
+    color: white;
+  }
+
+.friends{
+    background-color: black;
+    color: crimson;
+    margin-top:20px;
+}
+
+.ava {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

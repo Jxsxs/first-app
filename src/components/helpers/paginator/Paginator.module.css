@@ -1,0 +1,48 @@
+.pages {
+    width: 1500px; /* Ширина контейнера */
+    overflow-x: auto; /* Включаем горизонтальную прокрутку */
+    white-space: nowrap; /* Запрещаем перенос строк */
+  }
+  
+  .scrollContainer {
+    position: relative; /* Относительное позиционирование для создания контекста для абсолютно позиционированных элементов */
+    height: 20px; /* Высота ползунка */
+    margin-bottom: 10px; /* Отступ от контента для размещения ползунка */
+  }
+  
+  .scrollbar {
+    position: absolute; /* Абсолютное позиционирование */
+    height: 100%; /* Высота ползунка */
+    width: 10px; /* Ширина ползунка */
+    background-color: #ccc; /* Цвет ползунка */
+    top: 0; /* Располагаем ползунок сверху контейнера */
+    right: 0; /* Располагаем ползунок справа контейнера */
+    border-radius: 5px; /* Создаем закругление углов ползунка */
+  }
+  
+  .scrollbar:hover {
+    background-color: #aaa; /* Изменяем цвет ползунка при наведении */
+    cursor: pointer; /* Меняем курсор при наведении на ползунок */
+  }
+  
+  .scrollbar.active {
+    background-color: #666; /* Изменяем цвет активного ползунка */
+  }
+  
+  .scrollbarFill {
+    position: absolute; /* Абсолютное позиционирование */
+    height: 100%; /* Высота ползунка */
+    background-color: #666; /* Цвет активного ползунка */
+    width: 0; /* Ширина активного ползунка */
+    border-radius: 5px; /* Создаем закругление углов активного ползунка */
+  }
+  
+  .pageNumbers {
+    display: inline-block; /* Устанавливаем элементы в ряд */
+  }
+
+  .currPage {
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+  }
