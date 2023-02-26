@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import './App.css';
 // import DialogsContainer from './components/Dialogs/DialogsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -32,7 +32,7 @@ const App = (props) => {
       <div className='app-wrapper-content'>
       <Suspense fallback={<div><Preloader /></div>}>
       <Routes>
-      <Route path='' element={<Navigate to={<ProfileContainer/>} />}/>
+      <Route path='' element={<ProfileContainer/>}/>
       <Route path='/profile/' element={<ProfileContainer/>}/>
       <Route path='/profile/:profileId' element={<ProfileContainer/>}/>
       <Route path='/dialogs/*' element={<DialogsContainer/>} />
