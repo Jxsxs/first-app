@@ -17,26 +17,18 @@ const Info = (props) => {
   if(props.id != props.profileID){
     return<div>
     <div>
-      <span onClick={()=>{setEditMode(true)}}>
       <b>full name</b>: {props.profile.fullName}
-      </span>
     </div>
     <div>
-    <span onClick={()=>{setEditMode(true)}}>
       <b>looking for a job</b>: {props.profile.lookingForAJobDescription}
-      </span>
     </div>
     <div>
-    <span onClick={()=>{setEditMode(true)}}>
       <b>about me</b>: {props.profile.aboutMe}
-      </span>
     </div>
     <div>
-    <span onClick={()=>{setEditMode(true)}}>
       <b>contacts</b>:{Object.keys(props.profile.contacts).map(key=>{
         return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]}/>
       })}
-      </span>
     </div>
     </div>
   }if(props.id === props.profileID){

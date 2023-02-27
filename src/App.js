@@ -32,7 +32,7 @@ const App = (props) => {
       <div className='app-wrapper-content'>
       <Suspense fallback={<div><Preloader /></div>}>
       <Routes>
-      <Route path='' element={<Navigate to={ProfileContainer}/>}/>
+      <Route path='' element={<ProfileContainer/>}/>
       <Route path='/profile/' element={<ProfileContainer/>}/>
       <Route path='/profile/:profileId' element={<ProfileContainer/>}/>
       <Route path='/dialogs/*' element={<DialogsContainer/>} />
