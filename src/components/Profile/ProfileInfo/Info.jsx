@@ -16,6 +16,7 @@ const Info = (props) => {
   let [editMode, setEditMode] = useState(false)
   if(props.id != props.profileID){
     return<div>
+      <span>
     <div>
       <b>full name</b>: {props.profile.fullName}
     </div>
@@ -30,6 +31,7 @@ const Info = (props) => {
         return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key]}/>
       })}
     </div>
+    </span>
     </div>
   }if(props.id === props.profileID){
     if(editMode){
