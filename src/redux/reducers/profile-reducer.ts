@@ -1,18 +1,60 @@
 import { Requests } from "../../DAL/api";
 
+export type initialStateType = typeof initialState
+
+type post ={
+    message:string,
+    likesCount: number,
+    id:number
+}
+
+type profile = {
+
+}
+
+export type addPostType={
+        type:'ADD-POST',
+        newPostText: string
+    }
+
+export type changePostTextType={
+        type:'CHANGE-POST-TEXT',
+        newText:string
+    }
+
+export type setUserPageType={
+        type:'SET-USER-PAGE',
+        profile: any
+    }
+
+export type setStatusType={
+        type:'SET-STATUS',
+        status: string
+    }
+
+export type setAvatarType={
+        type:'SET-AVATAR',
+        photos:any
+    }
+
+export type setInfoType={
+            type:'SET-INFO',
+            info:any
+        }
+
 let initialState = { 
     posts: [
-    {message:"hi", likesCount:"11", id:1},
-    {message:"ky", likesCount:"10", id:2}
-],
-newPostsText:"",
-profile:null,
-status:''
+    {message:"hi", likesCount:11, id:1},
+    {message:"ky", likesCount:10, id:2}
+] as Array<post>,
+newPostsText:"" as string,
+profile:null as null | any,
+status:'' as string
 };
 
-const profileReducer=(state = initialState, action)=>{
+const profileReducer=(state = initialState, action: any): initialStateType=>{
     if(action.type==='ADD-POST'){
-        let newPost={message: action.newPostText ,likesCount:"0",id:3};
+        let newPost: post={message: action.newPostText ,likesCount:0,id:3};
         // let stateCopy ={...state};
         // stateCopy.posts=[...state.posts];
         // stateCopy.posts.unshift(newPost);
@@ -46,57 +88,57 @@ const profileReducer=(state = initialState, action)=>{
 }
 
 
-export const addPost=(newPostText)=>{
+export const addPost=(newPostText: string): addPostType=>{
     return{
         type:'ADD-POST',
         newPostText
     }
 };
-export const changePostText=(text)=>{
+export const changePostText=(text: string): changePostTextType=>{
     return{
         type:'CHANGE-POST-TEXT',
         newText:text
     }
 };
-export const setUserPage=(profile)=>{
+export const setUserPage=(profile: any): setUserPageType=>{
     return{
         type:'SET-USER-PAGE',
         profile
     }
 };
 
-export const setStatus=(status)=>{
+export const setStatus=(status: string): setStatusType=>{
     return{
         type:'SET-STATUS',
         status
     }
 };
 
-export const setAvatar=(photos)=>{
+export const setAvatar=(photos:any): setAvatarType=>{
     return{
         type:'SET-AVATAR',
         photos
     }
 };
 
-export const setInfo=(info)=>{
+export const setInfo=(info:any): setInfoType=>{
     return{
         type:'SET-INFO',
         info
     }
 };
 
-export const setProfile = (profileId) => async (dispatch)=>{
+export const setProfile = (profileId: number) => async (dispatch: any)=>{
         const response = await Requests.profile(profileId)
       dispatch(setUserPage(response.data))
     };
     
-export const getStatus = (profileId) => async (dispatch)=>{
+export const getStatus = (profileId: number) => async (dispatch: any)=>{
     let response = await Requests.getStatus(profileId)
     dispatch(setStatus(response.data))
 };
 
-export const changeStatus = (status) => async (dispatch)=>{
+export const changeStatus = (status: string) => async (dispatch: any)=>{
     try{
         let response = await Requests.changeStatus(status)
         dispatch(setStatus(status))
@@ -105,7 +147,7 @@ export const changeStatus = (status) => async (dispatch)=>{
     }
     };
 
-export const saveAvatar = (file) => async (dispatch)=>{
+export const saveAvatar = (file: any) => async (dispatch: any)=>{
     try{
         let response = await Requests.changeAvatar(file)
         if(response.data.resultCode===0){
@@ -115,7 +157,7 @@ export const saveAvatar = (file) => async (dispatch)=>{
     }
     };
 
-    export const saveInfo = (info) => async (dispatch, getState)=>{
+    export const saveInfo = (info: any) => async (dispatch: any, getState: any)=>{
         const userId = getState().auth.id
         let response = await Requests.changeInfo(info)
         if(response.data.resultCode===0){

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { follow, unfollow, changeFollowingProgress, getUsers } from "../../redux/reducers/users-reducer";
+import { follow, unfollow, changeFollowingProgress, getUsers } from "../../redux/reducers/users-reducer.ts";
 import Users from "./Users";
 import Preloader from "../preloader/preloader";
 import authRedirect from "../../hoc/redirect";

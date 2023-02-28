@@ -1,6 +1,4 @@
 import React from "react"
-import { Requests } from "../../../DAL/api"
-import { saveAvatar } from "../../../redux/reducers/profile-reducer"
 
 const ChangeAvatar = (props) => {
     const avatarChange = (e) => {

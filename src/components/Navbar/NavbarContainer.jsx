@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Navbar from "./Navbar";
-import { getAllUsers } from './../../redux/reducers/users-reducer';
+import { getAllUsers } from './../../redux/reducers/users-reducer.ts';
 
 // const NavbarContainer = (props) => {
 //   debugger

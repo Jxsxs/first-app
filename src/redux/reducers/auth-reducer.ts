@@ -1,15 +1,32 @@
 import { Requests } from "../../DAL/api";
 
-let initialState={
-    id:null,
-    email:null,
-    login:null,
-    isAuth:false,
-    errorMessage:null,
-    captcha:null
+export type initialStateType = typeof initialState
+
+export type authType = {
+    type: 'SET-AUTH';
+    data: {id:null | number, email: null | string, login: null | string, isAuth:boolean}
 }
 
-const authReducer = (state = initialState, action) => {
+export type setErrorType = {
+    type: 'SET-ERROR';
+    errorMessage: string
+}
+
+export type setCaptchaType = {
+    type: 'SET-CAPTCHA';
+    captcha: string
+}
+
+let initialState={
+    id:null as null | number,
+    email:null as null | string,
+    login:null as null | string,
+    isAuth:false as boolean,
+    errorMessage:null as null | string,
+    captcha:null as null | string
+}
+
+const authReducer = (state = initialState, action: any): initialStateType => {
     if(action.type==='SET-AUTH'){
         return{...state,
             ...action.data,
@@ -26,39 +43,36 @@ return state
 };
 
 
-export const auth=(id, email, login, isAuth)=>(
+export const auth=(id: number | null, email: string | null, login: string | null, isAuth: boolean): authType=>(
     {
-        type:'SET-AUTH',
+        type: 'SET-AUTH',
         data:{id, email, login, isAuth}
     }
 )
 
-const setError=(errorMessage)=>(
+const setError=(errorMessage: string): setErrorType=>(
     {
         type:'SET-ERROR',
         errorMessage:errorMessage
     }
 )
 
-const setCaptcha=(captcha)=>(
+const setCaptcha=(captcha: string): setCaptchaType=>(
     {
         type:'SET-CAPTCHA',
         captcha
     }
 )
 
-export const setAuth=()=> (dispatch) =>{
-        return Requests.auth()
-        .then(response=>{
+export const setAuth=()=> async (dispatch: any) =>{
+        let response = await Requests.auth()
           if(response.data.resultCode === 0) {
           let {id, email, login } = response.data.data;
           dispatch(auth(id, email, login, true))
           }
-          console.log('aaaa')
-      })
     };
 
-export const login = (email, password, rememberMe, captcha) => async (dispatch)=>{
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: any)=>{
     debugger
     let response = await Requests.login(email, password, rememberMe, captcha)
         if(response.data.resultCode===0){
@@ -74,7 +88,7 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch)=
     export const logOut = () => async (dispatch)=>{
         let response = await Requests.logOut()
             if(response.data.resultCode===0){
-                dispatch(setAuth(null, null, null, false))
+                dispatch(auth(null, null, null, false))
             }
             window.location.reload()
         }

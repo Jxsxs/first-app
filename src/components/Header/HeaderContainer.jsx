@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { setAuth, logOut } from "../../redux/reducers/auth-reducer";
+import { setAuth, logOut } from "../../redux/reducers/auth-reducer.ts";
 import Header from "./Header";
 
 const HeaderContainer = (props) => {

@@ -1,22 +1,18 @@
 import React from "react";
 import s from './Dialogs.module.css'
-import { Navigate, NavLink, Route, Routes } from "react-router-dom";
-import { changeMessageTextActionCreator, sendMessageActionCreator } from "../../redux/reducers/dialogs-reducer";
+import { NavLink, Route, Routes } from "react-router-dom";
 import authRedirect from "../../hoc/redirect";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Formik } from "formik";
 
 const dialogs = (props) => {
    let dialogsMap = props.dialogs.map( nav =><div><NavLink className={s.nav} to={`/dialogs/${nav.id}`}><div><img className={s.ava} src={nav.src}/> </div>{nav.name}{nav.status}</NavLink></div>)
-    let messagesMap = props.messages.map(message => <Route path={`/${message.id}`} element={message.message.map( mess =>{if(mess.userId === 228){return(<div className={s.myMessage}><div><div><img className={s.dialogAva} src={mess.src228} /></div><div>{mess.userMess}</div><div>{mess.time}</div></div></div>)}else {return(<div className={s.notMyMessage}><div><img className={s.dialogAva} src={mess.src}/></div><div>{mess.userMess}</div><div>{mess.time}</div></div>)}})}/>)
-    let newMessageText=React.createRef();
 
+   let messagesMap = props.messages.map(message => <Route path={`/${message.id}`} element={message.message.map( mess =>{if(mess.userId === 228){return(<div className={s.myMessage}><div><div><img className={s.dialogAva} src={mess.src228} /></div><div>{mess.userMess}</div><div>{mess.time}</div></div></div>)}else {return(<div className={s.notMyMessage}><div><img className={s.dialogAva} src={mess.src}/></div><div>{mess.userMess}</div><div>{mess.time}</div></div>)}})}/>)
+    
     let sendMessage=(values)=>{
         props.sendMessage(values.newMessageText)
     }
-    let changeMessageText=()=>{
-        let text =newMessageText.current.value;
-        props.changeMessageText(text)
-    }
+
     return(
         <div className={s.dialogs}>
                 <nav>
@@ -51,7 +47,7 @@ const dialogs = (props) => {
               }}
             
             >
-        {({values, errors, touched, handleChange, handleSubmit, isValid })=>(
+        {({values, handleChange, handleSubmit, isValid })=>(
             <div>
                 <p>
                     <div>
@@ -64,41 +60,6 @@ const dialogs = (props) => {
             </Formik>
             </div>
             </div>
-    )
-}
-
-let sendMessageForm = (props) => {
-    return(
-        <div>
-    <Formik
-       initialValues={{ message: '' }}
-       validate={values => {
-         const errors = {};
-         if (!values.message) {
-           errors.email = 'Required';
-         } else if (
-           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.message)
-         ) {
-           errors.email = 'message is not corrected';
-         }
-         return errors;
-       }}
-       onSubmit={(values, { setSubmitting }) => {
-         ;
-       }}
-     >
-        {({ isSubmitting }) => (
-    <form>
-<div>
-<Field component="textarea" type="newMessageText" name="newMessageText" placeholder="ENTER UR MESSAGE"/>
-            </div>
-            <div>
-            <button>send message</button>
-            </div>
-    </form>
-        )}
-    </Formik>
-    </div>
     )
 }
 

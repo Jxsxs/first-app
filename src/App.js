@@ -8,8 +8,8 @@ import NavbarContainer from './components/Navbar/NavbarContainer';
 // import UsersContainer from './components/Users/UsersContainer';
 import Login from './components/Login/login';
 import Preloader from './components/preloader/preloader';
-import { initialize } from './redux/reducers/app-reducer';
-import { getAllUsers } from './redux/reducers/users-reducer';
+import { initialize } from './redux/reducers/app-reducer.ts';
+import { getAllUsers } from './redux/reducers/users-reducer.ts';
 import { connect } from 'react-redux';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));

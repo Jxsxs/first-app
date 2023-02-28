@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setProfile, getStatus, changeStatus, saveAvatar, saveInfo } from "../../redux/reducers/profile-reducer";
+import { setProfile, getStatus, changeStatus, saveAvatar, saveInfo } from "../../redux/reducers/profile-reducer.ts";
 import { useLocation,useNavigate,useParams } from "react-router-dom";
 import Profile from "./Profile";
 import authRedirect from "../../hoc/redirect";

@@ -1,16 +1,59 @@
 import { Requests } from "../../DAL/api";
 
-let initialState={
-    users: [],
-    allUsers: [],
-    pageSize:5,
-    usersCount: 25,
-    currentPage:1,
-    dataFetch:false,
-    followingProgress:[]
+export type initialStateType = typeof initialState
+
+export type unfollowAccType={
+        type:'UNFOLLOW',
+        userId: number
+    }
+
+export type followAccType={
+    type:'FOLLOW',
+    userId: number
 }
 
-const usersReducer = (state = initialState, action) => {
+export type setUsersType={
+        type:'SET-USERS',
+        users: any
+    }
+
+export type setAllUsersType={
+        type:'SET-ALL-USERS',
+        allUsers: any
+    }
+
+export type setCurrentPageType={
+        type:'SET-CURRENT-PAGE',
+        currentPage: number
+    }
+
+export type setChangeUsersCountType={
+        type:'CHANGE-USERS-COUNT',
+        usersCount:number
+    }
+
+export type changeDataFetchType={
+        type:'CHANGE-DATA-FETCH',
+        dataFetch: boolean
+    }
+
+export type changeFollowingProgressType={
+        type:'CHANGE-FOLLOWING-PROGRESS',
+        followingProgress: any,
+        userId: number
+    }    
+
+let initialState={
+    users: [] as any,
+    allUsers: [] as any,
+    pageSize:5 as number,
+    usersCount: 25 as number,
+    currentPage:1 as number,
+    dataFetch:false as boolean,
+    followingProgress:[] as any,
+}
+
+const usersReducer = (state = initialState, action: any): initialStateType => {
     if(action.type==='UNFOLLOW'){
         return{...state,
         users:state.users.map(user=>{
@@ -55,55 +98,55 @@ const usersReducer = (state = initialState, action) => {
 };
 
 
-export const unfollowAcc=(userId)=>(
+export const unfollowAcc=(userId: number): unfollowAccType=>(
     {
         type:'UNFOLLOW',
         userId
     }
 )
 
-export const followAcc=(userId)=>(
+export const followAcc=(userId: number): followAccType=>(
     {
         type:'FOLLOW',
         userId
     }
 );
 
-export const setUsers=(users)=>(
+export const setUsers=(users:any): setUsersType=>(
     {
         type:'SET-USERS',
         users
     }
 )
 
-export const setAllUsers=(allUsers)=>(
+export const setAllUsers=(allUsers: any): setAllUsersType=>(
     {
         type:'SET-ALL-USERS',
         allUsers
     }
 )
-export const setCurrentPage=(currentPage)=>(
+export const setCurrentPage=(currentPage: number): setCurrentPageType=>(
     {
         type:'SET-CURRENT-PAGE',
         currentPage
     }
 )
 
-export const setChangeUsersCount=(usersCount)=>(
+export const setChangeUsersCount=(usersCount: number): setChangeUsersCountType=>(
     {
         type:'CHANGE-USERS-COUNT',
         usersCount
     }
 )
 
-export const changeDataFetch=(dataFetch)=>(
+export const changeDataFetch=(dataFetch:boolean): changeDataFetchType=>(
     {
         type:'CHANGE-DATA-FETCH',
         dataFetch
     }
 )
 
-export const changeFollowingProgress=(followingProgress, userId)=>(
+export const changeFollowingProgress=(followingProgress: any, userId: number): changeFollowingProgressType=>(
     {
         type:'CHANGE-FOLLOWING-PROGRESS',
         followingProgress,
@@ -112,7 +155,7 @@ export const changeFollowingProgress=(followingProgress, userId)=>(
 )
 
 
-export const getUsers = (currentPage, pageSize) => async (dispatch)=> {
+export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: any)=> {
         dispatch(changeDataFetch(true));
         let data = await Requests.getUsers(currentPage, pageSize)
         dispatch(changeDataFetch(false));    
@@ -121,13 +164,13 @@ export const getUsers = (currentPage, pageSize) => async (dispatch)=> {
         dispatch(setChangeUsersCount(data.totalCount));
 }
 
-export const getAllUsers = () => async (dispatch)=> {
+export const getAllUsers = () => async (dispatch:any)=> {
         let data = await Requests.getUsers(1, 100)   
         dispatch(setAllUsers(data.items));
         dispatch(setChangeUsersCount(data.totalCount));
     }
 
-    const followUnfollowFlow = async (dispatch, userId, requestsMethod, actionCreator) =>{
+    const followUnfollowFlow = async (dispatch: any, userId: number, requestsMethod: any, actionCreator: any) =>{
         dispatch(changeFollowingProgress(true, userId))
         let response = await requestsMethod(userId)
         if (response.data.resultCode === 0){
@@ -136,16 +179,16 @@ export const getAllUsers = () => async (dispatch)=> {
     dispatch(changeFollowingProgress(false, userId))
     }
 
-export const follow = (userId) => {
-    return async (dispatch)=> {
+export const follow = (userId: number) => {
+    return async (dispatch: any)=> {
     let requestsMethod =  Requests.follow.bind(Requests)
     let actionCreator = followAcc
     followUnfollowFlow(dispatch, userId, requestsMethod, actionCreator)
 }
 }
 
-export const unfollow = (userId) => {
-    return async (dispatch)=> {
+export const unfollow = (userId: number) => {
+    return async (dispatch: any)=> {
         let requestsMethod =  Requests.unfollow.bind(Requests)
         let actionCreator = unfollowAcc
         followUnfollowFlow(dispatch, userId, requestsMethod, actionCreator)
